@@ -12,7 +12,7 @@ import java.util.List;
 public interface ClassImpl {
     public List<ClassDto> getAllClass();
 
-    public Classname getClassById(Long id);
+    public Classname getClassById(Long id) throws ClassNotFoundException;
 
     public void addNewClass(Classname classname);
 
@@ -21,10 +21,6 @@ public interface ClassImpl {
     public void deleteClassById(Long id);
 
     public Long totalNoOfStudent(Long classId);
-
-    public void addNewStudent(Long classId, Student student);
-
-    public void addNewTeacher(Long classId, Teacher teacher);
 
     public List<Student> totalStudents(Long classId);
 }

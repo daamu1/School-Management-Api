@@ -16,6 +16,6 @@ public interface StudentImpl {
 
     public  void updateStudentDetails( Long classId,Long studentId, Student dtudent);
 
-    public void deleteStudentById(Long id);
+    public void deleteStudentById( Long classId,Long studentId);
     public  int countTotalNoStudent(Long classId);
 }

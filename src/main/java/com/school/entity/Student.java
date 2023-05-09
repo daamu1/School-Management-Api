@@ -23,7 +23,7 @@ public class Student {
     private String studentName;
     private String fatherName;
     private String motherName;
-    @OneToMany(mappedBy = "student", cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
    @JsonIgnore
     private List<Address> addresses;
     @ManyToOne

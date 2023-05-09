@@ -25,9 +25,9 @@ public class Teacher {
     @JoinTable(name = "class_teacher", joinColumns = @JoinColumn(name = "teacher_id"), inverseJoinColumns = @JoinColumn(name = "class_id"))
     @JsonIgnore
     private List<Classname> classname;
-    @OneToMany(mappedBy = "teacher", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "teacher", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Address> addresses;
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher",cascade =CascadeType.ALL )
     @JsonIgnore
     private List<Subject> subjects;
 

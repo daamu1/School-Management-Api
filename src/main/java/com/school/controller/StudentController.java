@@ -38,9 +38,9 @@ public class StudentController {
     {
         students.updateStudentDetails(classId,studentId,student);
     }
-    @DeleteMapping("/students/{studentId}")
-    public  void deleteStudent(@PathVariable Long studentId)
+    @DeleteMapping("{classId}/students/{studentId}")
+    public  void deleteStudent(@PathVariable Long classId,@PathVariable Long studentId)
     {
-        students.deleteStudentById(studentId);
+        students.deleteStudentById(classId,studentId);
     }
 }

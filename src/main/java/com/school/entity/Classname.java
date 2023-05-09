@@ -24,11 +24,11 @@ public class Classname {
     private int totalNoSection;
     private String schoolName;
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH,
-            CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
+            CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REMOVE})
     @JoinTable(name = "class_teacher", joinColumns = @JoinColumn(name = "class_id"), inverseJoinColumns = @JoinColumn(name = "teacher_id"))
     @JsonIgnore
     private List<Teacher> teacher;
-    @OneToMany(mappedBy = "className", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "className", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Student> student;
 
     public Classname(List<Teacher> teacher) {

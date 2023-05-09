@@ -17,7 +17,7 @@ public interface SubjectImpl {
 
     public  void updateSubjectDetail(Long techerId,Long subjectId, Subject subject);
 
-    public void deleteSubjectById(Long id);
+    public void deleteSubjectById(Long techerId,Long subjectId);
 
 
 }

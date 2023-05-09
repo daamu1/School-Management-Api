@@ -35,7 +35,7 @@ public class ClassController {
     }
 
     @GetMapping("/classes/{classId}")
-    public Classname getClassById(@PathVariable Long classId) {
+    public Classname getClassById(@PathVariable Long classId) throws ClassNotFoundException {
         return classService.getClassById(classId);
     }
 
@@ -43,12 +43,7 @@ public class ClassController {
     public void addNewClass(@RequestBody Classname classname) {
         classService.addNewClass(classname);
     }
-
-    @PostMapping("/classes")
-    public void addNewAddmission(@RequestBody Student student, @PathVariable Long classId) {
-        classService.addNewStudent(classId, student);
-    }
-
+    
     @PutMapping("/classes/{classId}")
     public void updateClassDetails(@RequestBody Classname classname, @PathVariable Long classId) {
         classService.updateClassDetails(classId, classname);

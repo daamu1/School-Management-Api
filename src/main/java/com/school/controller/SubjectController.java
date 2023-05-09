@@ -39,8 +39,8 @@ public class SubjectController {
         subjectImpl.updateSubjectDetail(teacherId, subjectId, subject);
     }
 
-    @DeleteMapping("/subjects/{subjectId}")
-    public void deleteSubject(@PathVariable Long subjectId) {
-        subjectImpl.deleteSubjectById(subjectId);
+    @DeleteMapping("{teacherId}/subjects/{subjectId}")
+    public void deleteSubject(@PathVariable Long teacherId,@PathVariable Long subjectId) {
+        subjectImpl.deleteSubjectById(teacherId,subjectId);
     }
 }
