@@ -2,6 +2,7 @@ package com.school.controller;
 
 
 import com.school.dto.TeacherDto;
+import com.school.entity.Classname;
 import com.school.entity.Subject;
 import com.school.entity.Teacher;
 import com.school.service.TeacherImpl;
@@ -51,5 +52,16 @@ public class TeacherController {
     {
         return  teachers.totalSubjectTeachesesByTecher(teacherId);
     }
+
+    @GetMapping("/teachers/{teacherId}/classes")
+    public  List<Classname> totalClassTechesesByTecher(@PathVariable Long teacherId)
+    {
+        return  teachers.totalClassTechesesByTecher(teacherId);
+    }
+    @GetMapping("/teachers/{teacherId}/classes/{classId}")
+    public Classname findByClassIdAndTeacherId(@PathVariable Long teacherId,@PathVariable Long classId) {
+        return teachers.findByClassIdAndTeacherId(classId,teacherId);
+
+        }
 
 }

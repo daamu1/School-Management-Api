@@ -1,8 +1,10 @@
 package com.school.service;
 
 import com.school.dto.TeacherDto;
+import com.school.entity.Classname;
 import com.school.entity.Subject;
 import com.school.entity.Teacher;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,4 +20,9 @@ public interface TeacherImpl {
 
     public void deleteTeacherById(Long classId,Long techerId);
     public List<Subject> totalSubjectTeachesesByTecher(Long teacherId);
+
+    public List<Classname> totalClassTechesesByTecher(Long teacherId);
+
+   public Classname findByClassIdAndTeacherId(Long teacherId,Long classId);
+
 }

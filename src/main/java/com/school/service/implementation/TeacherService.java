@@ -12,6 +12,7 @@ import com.school.repository.TeacherRepository;
 import com.school.service.TeacherImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 public class TeacherService implements TeacherImpl {
@@ -110,11 +112,39 @@ public class TeacherService implements TeacherImpl {
     @Transactional
     public List<Subject> totalSubjectTeachesesByTecher(Long teacherId) {
         try {
-            Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(() ->
-                    new TeacherNotFoundException("Given Teacher id " + teacherId + " is invalid "));
+            Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(() -> new TeacherNotFoundException("Given Teacher id " + teacherId + " is invalid "));
             return teacherRepository.findSubjectsByTecherId(teacherId);
         } catch (Exception e) {
             throw new RuntimeException("Error while fetching subjects taught by teacher with id " + teacherId, e);
+        }
+    }
+
+    @Override
+    @Transactional
+    public List<Classname> totalClassTechesesByTecher(Long teacherId) {
+        try {
+            Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(() -> new TeacherNotFoundException("Given Teacher id " + teacherId + " is invalid "));
+            return teacherRepository.totalClassTechesesByTecher(teacherId);
+        } catch (Exception e) {
+            throw new RuntimeException("Error while fetching Classes taught by teacher with id " + teacherId, e);
+        }
+    }
+
+    @Override
+    public Classname findByClassIdAndTeacherId (Long classId,Long teacherId) {
+        try (Stream<Classname> classes = teacherRepository.totalClassTechesesByTecher(teacherId).stream()) {
+            Teacher teacher = teacherRepository.findById(teacherId)
+                    .orElseThrow(() -> new TeacherNotFoundException("Teacher not found with id " + teacherId));
+            Classname classname = classRepository.findById(classId)
+                    .orElseThrow(() -> new ClassNotFoundException("Class not found with id " + classId));
+
+            if (!classes.anyMatch(c -> c.equals(classname))) {
+                throw new RuntimeException("Class with id "+classId +" not taught by teacher with id " + teacherId);
+            }
+
+            return classname;
+        } catch (DataAccessException e) {
+            throw new RuntimeException("Error while fetching class taught by teacher with id " + teacherId, e);
         }
     }
 
